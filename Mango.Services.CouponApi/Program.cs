@@ -1,6 +1,17 @@
+using Mango.Services.CouponApi.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
+// Add DbCOntext in services
+builder.Services.AddDbContext<AppDbContext>(option =>
+
+option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+
+) ;
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
