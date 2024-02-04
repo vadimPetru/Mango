@@ -1,4 +1,5 @@
 using Mango.Services.CouponApi.Data;
+using Mango.Services.CouponApi.MIdlware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,5 +33,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseMiddleware<ApplyMigrationMiddleware>();
 app.Run();
