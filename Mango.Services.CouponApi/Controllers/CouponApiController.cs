@@ -52,5 +52,38 @@ namespace Mango.Services.CouponApi.Controllers
             }
             return _responseDto;
         }
+
+        [HttpGet]
+        [Route("GetByCode/{code}")]
+        public async Task<ResponseDto> get(string code)
+        {
+            try
+            {
+                _responseDto.Result = _couponRepository.GetCouponByCode(code);
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.IsSuccess = false;
+            }
+            return _responseDto;
+        }
+
+        [HttpPost]
+        public async Task<ResponseDto> Post([FromBody] CouponDto coupon)
+        {
+            try
+            {
+               
+                _responseDto.Result = await _couponRepository.AddCoupon(coupon);
+                
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.IsSuccess = false;
+            }
+            return _responseDto;
+        }
     }
 }
