@@ -1,6 +1,5 @@
 ﻿using Mango.Services.CouponApi.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Mango.Services.CouponApi.MIdlware
 {
