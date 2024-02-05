@@ -12,40 +12,45 @@ namespace Mango.Services.CouponApi.Controllers
     public class CouponApiController: ControllerBase
     {
         private readonly ICouponRepository _couponRepository;
+        private readonly ResponseDto _responseDto;
+
 
         public CouponApiController(ICouponRepository couponRepository)
         {
             _couponRepository = couponRepository;
+            _responseDto = new ResponseDto();
         }
 
         [HttpGet]
-        public Task<IEnumerable<CouponDto>> getAll()
+        public async Task<ResponseDto> getAll()
         {
             try
             {
-                 return _couponRepository.GetCupons();
+                 _responseDto.Result = await _couponRepository.GetCupons();
 
             }
             catch(Exception ex)
             {
-
+                _responseDto.Message = ex.Message;
+                _responseDto.IsSuccess = false;
             }
-            return null;
+            return _responseDto;
         }
 
         
         [HttpGet("id:int")]
-        public Task<CouponDto> get(int id)
+        public async Task<ResponseDto> get(int id)
         {
             try
             {
-               return  _couponRepository.GetCouponById(id);
+               _responseDto.Result  = await _couponRepository.GetCouponById(id);
             }
             catch(Exception ex)
             {
-
+                _responseDto.Message = ex.Message;
+                _responseDto.IsSuccess = false;
             }
-            return null;
+            return _responseDto;
         }
     }
 }
