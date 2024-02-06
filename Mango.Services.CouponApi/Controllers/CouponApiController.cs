@@ -85,5 +85,39 @@ namespace Mango.Services.CouponApi.Controllers
             }
             return _responseDto;
         }
+
+        [HttpPut]
+        public async Task<ResponseDto> Put([FromBody] CouponDto coupon)
+        {
+            try
+            {
+
+                _responseDto.Result = await _couponRepository.UpdateCoupon(coupon);
+
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.IsSuccess = false;
+            }
+            return _responseDto;
+        }
+
+        [HttpDelete]
+        public async Task<ResponseDto> Delete(int id)
+        {
+            try
+            {
+
+                _responseDto.Result = await _couponRepository.DeleteCoupon(id);
+
+            }
+            catch (Exception ex)
+            {
+                _responseDto.Message = ex.Message;
+                _responseDto.IsSuccess = false;
+            }
+            return _responseDto;
+        }
     }
 }

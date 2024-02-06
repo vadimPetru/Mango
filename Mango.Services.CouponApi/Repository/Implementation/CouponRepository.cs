@@ -4,7 +4,6 @@ using Mango.Services.CouponApi.Models;
 using Mango.Services.CouponApi.Models.Dto;
 using Mango.Services.CouponApi.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 
 namespace Mango.Services.CouponApi.Repository.Implementation
 {
@@ -27,6 +26,14 @@ namespace Mango.Services.CouponApi.Repository.Implementation
             return _mapper.Map<CouponDto>(couponElement);
         }
 
+        public async Task<CouponDto> DeleteCoupon(int id)
+        {
+            var coupon = await _context.Coupons.FirstAsync(item => item.CouponId == id);
+            _context.Coupons.Remove(coupon);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<CouponDto>(coupon);
+        }
+
         public async Task<CouponDto> GetCouponByCode(string code)
         {
             var couponCode =  await _context.Coupons.FirstAsync(item => item.CouponCode == code);
@@ -46,6 +53,12 @@ namespace Mango.Services.CouponApi.Repository.Implementation
             return _mapper.Map<IEnumerable<CouponDto>>(coupons);
         }
 
-        
+        public async Task<CouponDto> UpdateCoupon(CouponDto coupon)
+        {
+            var couponElement = _mapper.Map<Coupon>(coupon);
+             _context.Coupons.Update(couponElement);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<CouponDto>(couponElement);
+        }
     }
 }
