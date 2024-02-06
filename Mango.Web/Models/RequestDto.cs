@@ -1,4 +1,6 @@
-﻿namespace Mango.Web.Models
+﻿using Mango.Web.Utils;
+
+namespace Mango.Web.Models
 {
     public class RequestDto
     {
