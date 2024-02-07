@@ -23,7 +23,7 @@ namespace Mango.Web.Services.Implementation
             {
                 ApiTypes = ApiType.POST,
                 Data=couponDto,
-                Url = _options.Value.CouponAPI + "api/coupon"
+                Url = _options.Value.CouponAPI + "/api/coupon"
             });
         }
 
