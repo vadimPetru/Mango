@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<ICouponService, CouponService>();
-builder.Services.Configure<ServiceUrls>(builder.Configuration.GetSection("CouponAPI"));
+builder.Services.Configure<ServiceUrls>(builder.Configuration.GetSection("ServiceUrls"));
 
 
 builder.Services.AddScoped<IBaseService, BaseService>();

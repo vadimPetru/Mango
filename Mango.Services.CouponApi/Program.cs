@@ -8,10 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-
-
 
 // Add DbCOntext in services
 builder.Services.AddDbContext<AppDbContext>(option =>
