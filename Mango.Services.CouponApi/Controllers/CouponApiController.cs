@@ -1,15 +1,12 @@
 ﻿using Mango.Services.CouponApi.Models.Dto;
 using Mango.Services.CouponApi.Repository.Interface;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace Mango.Services.CouponApi.Controllers
 {
     [Route("api/coupon")]
     [ApiController]
-    public class CouponApiController: ControllerBase
+    public class CouponApiController : ControllerBase
     {
         private readonly ICouponRepository _couponRepository;
         private readonly ResponseDto _responseDto;
@@ -26,10 +23,10 @@ namespace Mango.Services.CouponApi.Controllers
         {
             try
             {
-                 _responseDto.Result = await _couponRepository.GetCupons();
+                _responseDto.Result = await _couponRepository.GetCupons();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _responseDto.Message = ex.Message;
                 _responseDto.IsSuccess = false;
@@ -37,15 +34,15 @@ namespace Mango.Services.CouponApi.Controllers
             return _responseDto;
         }
 
-        
-        [HttpGet("id:int")]
+
+        [HttpGet("{id:int}")]
         public async Task<ResponseDto> get(int id)
         {
             try
             {
-               _responseDto.Result  = await _couponRepository.GetCouponById(id);
+                _responseDto.Result = await _couponRepository.GetCouponById(id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _responseDto.Message = ex.Message;
                 _responseDto.IsSuccess = false;
@@ -74,9 +71,9 @@ namespace Mango.Services.CouponApi.Controllers
         {
             try
             {
-               
+
                 _responseDto.Result = await _couponRepository.AddCoupon(coupon);
-                
+
             }
             catch (Exception ex)
             {
@@ -104,7 +101,8 @@ namespace Mango.Services.CouponApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<ResponseDto> Delete(int id)
+		[Route("{id:int}")]
+		public async Task<ResponseDto> Delete(int id)
         {
             try
             {

@@ -32,16 +32,16 @@ namespace Mango.Web.Services.Implementation
             return _baseService.SendAsync(new RequestDto()
             {
                 ApiTypes = ApiType.DELETE,
-                Url = _options.Value.CouponAPI + "api/coupon/" + id
+                Url = _options.Value.CouponAPI + "/api/coupon/" + id
             });
         }
 
-        public Task<ResponseDto?> GetCouponByCode(string couponCode)
+		public Task<ResponseDto?> GetCouponByCode(string couponCode)
         {
             return _baseService.SendAsync(new RequestDto()
             {
                 ApiTypes = ApiType.GET,
-                Url = _options.Value.CouponAPI + "api/coupon/GetByCode/" + couponCode
+                Url = _options.Value.CouponAPI + "/api/coupon/GetByCode/" + couponCode
             }) ;
         }
 
@@ -50,7 +50,7 @@ namespace Mango.Web.Services.Implementation
             return _baseService.SendAsync(new RequestDto()
             {
                 ApiTypes = ApiType.GET,
-                Url = _options.Value.CouponAPI + "api/coupon/" + id
+                Url = _options.Value.CouponAPI + "/api/coupon/" + id
             });
         }
 
@@ -68,7 +68,7 @@ namespace Mango.Web.Services.Implementation
             {
                 ApiTypes = ApiType.PUT,
                 Data = couponDto,
-                Url = _options.Value.CouponAPI + "api/coupon"
+                Url = _options.Value.CouponAPI + "/api/coupon"
             });
         }
     }
