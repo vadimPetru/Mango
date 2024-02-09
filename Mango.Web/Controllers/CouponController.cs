@@ -50,6 +50,7 @@ namespace Mango.Web.Controllers
 
                 if (response != null && response.IsSuccess)
                 {
+                    TempData["success"] = "Coupon Create SuccessFully";
                     return RedirectToAction(nameof(Index));
                 }
                 else
@@ -79,6 +80,7 @@ namespace Mango.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
+                TempData["success"] = "Coupon Delete SuccessFully";
                 return RedirectToAction(nameof(Index));
             }
             else
