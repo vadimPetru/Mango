@@ -1,3 +1,4 @@
+using Infrastructure;
 using Mango.Services.AuthAPI.Data;
 using Mango.Services.AuthAPI.Models;
 using Microsoft.AspNetCore.Identity;
@@ -12,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("AppSetting:JwtOptions"));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
