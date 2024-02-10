@@ -1,6 +1,5 @@
 using AutoMapper;
 using Mango.Services.CouponApi.Data;
-using Mango.Services.CouponApi.MIdlware;
 using Mango.Services.CouponApi.Repository.Implementation;
 using Mango.Services.CouponApi.Repository.Interface;
 using Mango.Services.CouponApi.Utils;
@@ -31,11 +30,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.UseMiddleware<ApplyMigrationMiddleware>();
 app.MapControllers();
 
 app.Run();
