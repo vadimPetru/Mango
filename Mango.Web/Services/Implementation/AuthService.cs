@@ -68,7 +68,9 @@ namespace Mango.Web.Services.Implementation
             identity.AddClaim(new Claim
                 (JwtRegisteredClaimNames.Name, jwt.Claims.FirstOrDefault(cliam => cliam.Type == JwtRegisteredClaimNames.Name).Value));
             identity.AddClaim(new Claim
-              (JwtRegisteredClaimNames.Name, jwt.Claims.FirstOrDefault(cliam => cliam.Type == JwtRegisteredClaimNames.Email).Value));
+              (ClaimTypes.Name, jwt.Claims.FirstOrDefault(cliam => cliam.Type == JwtRegisteredClaimNames.Email).Value));
+
+            identity.AddClaim(new Claim(ClaimTypes.Role, jwt.Claims.FirstOrDefault(claim => claim.Type == "role").Value));
 
             var principal = new ClaimsPrincipal(identity);
 
