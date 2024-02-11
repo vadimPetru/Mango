@@ -1,15 +1,18 @@
 ﻿using Mango.Web.Models;
 using Mango.Web.Services.Interfaces;
 using Mango.Web.Utils;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
+using Variables;
 
 namespace Mango.Web.Services.Implementation
 {
     public class BaseService : IBaseService
     {
         private readonly IHttpClientFactory _httpClientFactory;
+      
 
         public BaseService(IHttpClientFactory httpClientFactory)
         {
