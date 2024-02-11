@@ -12,14 +12,15 @@ namespace Mango.Web.Services.Implementation
     public class BaseService : IBaseService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-      
+        private readonly ITokenProvider _tokenProvider;
 
-        public BaseService(IHttpClientFactory httpClientFactory)
+        public BaseService(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider)
         {
             _httpClientFactory = httpClientFactory;
+            _tokenProvider = tokenProvider;
         }
 
-        public async Task<ResponseDto?> SendAsync(RequestDto requestDto)
+        public async Task<ResponseDto?> SendAsync(RequestDto requestDto, bool withBearer = true)
         {
             try
             {
@@ -28,8 +29,11 @@ namespace Mango.Web.Services.Implementation
             HttpClient client = _httpClientFactory.CreateClient("MangoAPI");
             HttpRequestMessage message = new();
             message.Headers.Add("Accept", "application/json");
-            //token 
-
+                //token 
+                if (withBearer)
+                {
+                    message.Headers.Add("Authorization", $"Bearer {_tokenProvider.GetToken()}");
+                }
             message.RequestUri = new Uri(requestDto.Url);
             if(requestDto is not null)
             {
@@ -51,7 +55,7 @@ namespace Mango.Web.Services.Implementation
                 return response.StatusCode switch
                 {
                     HttpStatusCode.NotFound => new() { IsSuccess = false, Message = "Not Found" },
-                    HttpStatusCode.Forbidden => new() { IsSuccess = false, Message = "Forbidden" },
+                    HttpStatusCode.Forbidden => new() { IsSuccess = false, Message = "Access Denided" },
                     HttpStatusCode.Unauthorized => new() { IsSuccess = false, Message = "Unauthorized" },
                     HttpStatusCode.InternalServerError => new() { IsSuccess = false, Message = "InternalServerError" },
                     _ => JsonConvert.DeserializeObject<ResponseDto>(await response.Content.ReadAsStringAsync()),
