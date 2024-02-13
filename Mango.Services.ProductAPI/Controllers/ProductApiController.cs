@@ -8,7 +8,6 @@ namespace Mango.Services.CouponApi.Controllers
 {
     [Route("api/product")]
     [ApiController]
-    [Authorize]
     public class ProductApiController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
@@ -88,7 +87,7 @@ namespace Mango.Services.CouponApi.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "ADMIN")]
+       [Authorize(Roles = "Admin")]
         public async Task<ResponseDto> Put([FromBody] ProductDto product)
         {
             try
@@ -107,7 +106,7 @@ namespace Mango.Services.CouponApi.Controllers
 
         [HttpDelete]
 		[Route("{id:int}")]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "Admin")]
         public async Task<ResponseDto> Delete(int id)
         {
             try
